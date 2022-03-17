@@ -3,7 +3,7 @@ version: 2
 jobs:
   build-image:
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: docker:dind
         auth:
           username: norgefajardo
           password: $DOCKERHUB_PASSWORD

@@ -35,6 +35,7 @@ jobs:
             apt install gettext git
       - run:
           name: Clone chart repository
+          command: |
             git clone https://github.com/stdevNorge/cron-chart.git ~/cron-chart
             envsubst < ~/cron-chart/values.yaml
             git add .

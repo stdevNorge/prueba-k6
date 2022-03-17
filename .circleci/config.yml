@@ -46,3 +46,4 @@ workflows:
   performance_tests:
     jobs:
       - build-image
+      - modify-chart

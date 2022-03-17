@@ -26,13 +26,8 @@ jobs:
       replicas: 3
       repository: "eueueueue"
     docker:
-      - image: ubuntu
+      - image: norgefajardo/alpine-git:0.1
     steps:
-      - run:
-          name: Install dependencies
-          command: |
-            apt update
-            apt install -y gettext git
       - run:
           name: Clone chart repository
           command: |

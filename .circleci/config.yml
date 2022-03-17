@@ -20,8 +20,29 @@ jobs:
             docker tag test-k6 "norgefajardo/test-k6:${CIRCLE_SHA1}"
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
+  modify-chart:
+    environment:
+      schedule: "0 12 * * *"
+      replicas: 3
+      repository: "eueueueue"
+    docker:
+      - image: ubuntu
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            apt update
+            apt install gettext git
+      - run:
+          name: Clone chart repository
+            git clone https://github.com/stdevNorge/cron-chart.git ~/cron-chart
+            envsubst < ~/cron-chart/values.yaml
+            git add .
+            git commit -am "eoouo"
+            git push
+
 workflows:
   version: 2
-  one_and_two: # this is the name of our workflow
-    jobs: # and here we list the jobs we are going to run.
+  performance_tests:
+    jobs:
       - build-image

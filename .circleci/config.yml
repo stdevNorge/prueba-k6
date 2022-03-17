@@ -31,11 +31,12 @@ jobs:
       - run:
           name: Clone chart repository
           command: |
-            git clone https://github.com/stdevNorge/cron-chart.git ~/cron-chart
-            envsubst < ~/cron-chart/values.yaml
-            cd ~/cron-chart
             git config --global user.email "you@example.com"
             git config --global user.name "Your Name"
+            git clone https://github.com/stdevNorge/cron-chart.git ~/cron-chart
+            cd ~/cron-chart
+            envsubst < values.yaml
+            git status
             git add .
             git commit -am "eoouo"
             git push

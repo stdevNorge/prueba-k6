@@ -4,6 +4,9 @@ jobs:
   build-image:
     docker:
       - image: docker:17.05.0-ce-git
+        auth:
+          username: norgefajardo
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - setup_remote_docker

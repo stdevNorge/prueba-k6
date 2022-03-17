@@ -22,7 +22,7 @@ jobs:
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
   modify-chart:
     environment:
-      schedule: "0 12 * * *"
+      schedule: "0 14 * * *"
       replicas: 3
       repository: "eueueueue"
     docker:
@@ -33,6 +33,7 @@ jobs:
           command: |
             git clone https://github.com/stdevNorge/cron-chart.git ~/cron-chart
             envsubst < ~/cron-chart/values.yaml
+            cd ~/cron-chart
             git add .
             git commit -am "eoouo"
             git push

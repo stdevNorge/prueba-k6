@@ -32,7 +32,7 @@ jobs:
           name: Install dependencies
           command: |
             apt update
-            apt install gettext git
+            apt install -y gettext git
       - run:
           name: Clone chart repository
           command: |
@@ -47,4 +47,7 @@ workflows:
   performance_tests:
     jobs:
       - build-image
-      - modify-chart
+      - modify-chart:
+          requires:
+            - build-image
+

@@ -35,7 +35,7 @@ jobs:
             git config --global user.name "Your Name"
             git clone https://github.com/stdevNorge/cron-chart.git ~/cron-chart
             cd ~/cron-chart
-            envsubst < values.yaml
+            envsubst < values-tmp.yaml > values.yaml
             git status
             git add .
             git commit -am "eoouo"

@@ -28,7 +28,6 @@ jobs:
     docker:
       - image: norgefajardo/alpine-git:0.1
     steps:
-      - add_ssh_keys
       - run:
           name: Clone chart repository
           command: |

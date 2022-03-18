@@ -18,13 +18,15 @@ jobs:
           name: Push docker image to registry
           command: |
             docker tag test-k6 "norgefajardo/test-k6:${CIRCLE_SHA1}"
+            docker tag test-k6 "norgefajardo/test-k6:latest"
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
+            docker push "norgefajardo/test-k6:latest"
   modify-chart:
     environment:
       schedule: "0 14 * * *"
-      replicas: 3
-      repository: "eueueueue"
+      replicas: 10
+      repository: "norgefajardo/test-k6:${CIRCLE_SHA1}"
     docker:
       - image: norgefajardo/alpine-git:0.1
     steps:
@@ -37,7 +39,7 @@ jobs:
             cd ~/cron-chart
             envsubst < values-tmp.yaml > values.yaml
             git add .
-            git commit -am "eoouo"
+            git commit -am "${CIRCLE_SHA1}"
             git push origin master
 
 workflows:

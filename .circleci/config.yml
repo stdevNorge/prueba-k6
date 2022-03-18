@@ -24,8 +24,8 @@ jobs:
             docker push "norgefajardo/test-k6:latest"
   modify-chart:
     environment:
-      schedule: "0 14 * * *"
-      replicas: 10
+      schedule: "0 15 * * *"
+      replicas: 5
       repository: norgefajardo/test-k6:${CIRCLE_SHA1}
     docker:
       - image: norgefajardo/alpine-git:0.1

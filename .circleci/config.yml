@@ -28,18 +28,20 @@ jobs:
     docker:
       - image: norgefajardo/alpine-git:0.1
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - c7:66:c8:d0:06:a9:53:d3:50:3c:7a:73:7d:3e:3f:f6
       - run:
           name: Clone chart repository
           command: |
             git config --global user.email "you@example.com"
             git config --global user.name "Your Name"
-            git clone https://github.com/stdevNorge/cron-chart.git ~/cron-chart
+            git clone git@github.com:stdevNorge/cron-chart.git ~/cron-chart
             cd ~/cron-chart
             envsubst < values-tmp.yaml > values.yaml
-            git status
             git add .
             git commit -am "eoouo"
-            git push
+            git push origin master
 
 workflows:
   version: 2

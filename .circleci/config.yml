@@ -35,7 +35,7 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker push "norgefajardo/test-k6:latest"
-            sed -i s/repository:\ \"\"/repository:\ \"norgefajardo/test-k6:${CIRCLE_SHA1}\"/g values.yaml
+            sed -i 's/repository:\ \"\"/repository:\ \"norgefajardo/test-k6:${CIRCLE_SHA1}\"/g' values.yaml
             cp values.yaml /workspace/
       - persist_to_workspace:
           root: workspace

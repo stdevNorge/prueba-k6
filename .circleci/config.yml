@@ -1,12 +1,24 @@
-version: 2
+version: 2.1
 
-jobs:
-  build-image:
+executors:
+  dind-executor:
     docker:
       - image: docker:dind
         auth:
           username: norgefajardo
           password: $DOCKERHUB_PASSWORD
+    working_directory: /tmp
+  git-tools:
+    docker:
+      - image: norgefajardo/alpine-git:0.1
+        auth:
+          username: norgefajardo
+          password: $DOCKERHUB_PASSWORD
+    working_directory: /tmp
+
+jobs:
+  build-image:
+    executor: dind-executor
     steps:
       - checkout
       - setup_remote_docker
@@ -22,16 +34,18 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker push "norgefajardo/test-k6:latest"
+            sed -i s/repository:\ \"\"/repository:\ \"norgefajardo/test-k6:${CIRCLE_SHA1}\"/g values.yaml
+            cp values.yaml /workspace/
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - values.yaml
+
   modify-chart:
-    environment:
-      schedule: "0 15 * * *"
-      replicas: 5
-      tag: "${CIRCLE_SHA1}"
-      project: calle13
-      repository: norgefajardo/test-k6
-    docker:
-      - image: norgefajardo/alpine-git:0.1
+    executor: git-tools
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: Clone chart repository
           command: |
@@ -39,14 +53,13 @@ jobs:
             git config --global user.name "Norge Fajardo Vega"
             git clone git@github.com:stdevNorge/cron-chart.git ~/cron-chart
             cd ~/cron-chart
-            envsubst < values-tmp.yaml > values.yaml
+            cp /tmp/workspace/values.yaml .
             git add .
             git commit -am "${CIRCLE_SHA1}"
             git push origin master
 
 workflows:
-  version: 2
-  performance_tests:
+  btd:
     jobs:
       - build-image
       - modify-chart:

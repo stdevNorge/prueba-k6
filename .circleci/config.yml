@@ -37,7 +37,7 @@ jobs:
             docker push "norgefajardo/test-k6:latest"
             sed -i 's/repository:\ \"\"/repository:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g' values.yaml
       - run: mkdir -p workspace
-      - run: cp values.yaml /workspace/values.yaml
+      - run: cp values.yaml workspace/values.yaml
       - persist_to_workspace:
           root: workspace
           paths:

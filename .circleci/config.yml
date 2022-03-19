@@ -68,4 +68,3 @@ workflows:
       - modify-chart:
           requires:
             - build-image
-

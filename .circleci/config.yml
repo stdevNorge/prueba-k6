@@ -7,14 +7,15 @@ executors:
         auth:
           username: norgefajardo
           password: $DOCKERHUB_PASSWORD
-    working_directory: /tmp
+    working_directory: /tmp/k6-image/
+
   git-tools:
     docker:
       - image: norgefajardo/alpine-git:0.1
         auth:
           username: norgefajardo
           password: $DOCKERHUB_PASSWORD
-    working_directory: /tmp
+    working_directory: /tmp/k6-image/
 
 jobs:
   build-image:

@@ -36,7 +36,8 @@ jobs:
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker push "norgefajardo/test-k6:latest"
             sed -i 's/repository:\ \"\"/repository:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g' values.yaml
-            cp values.yaml /workspace/values.yaml
+      - run: mkdir -p workspace
+      - run: cp values.yaml /workspace/values.yaml
       - persist_to_workspace:
           root: workspace
           paths:
@@ -46,7 +47,7 @@ jobs:
     executor: git-tools
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+          at: /tmp/k6-image/workspace
       - run:
           name: Clone chart repository
           command: |
@@ -54,7 +55,7 @@ jobs:
             git config --global user.name "Norge Fajardo Vega"
             git clone git@github.com:stdevNorge/cron-chart.git ~/cron-chart
             cd ~/cron-chart
-            cp /tmp/workspace/values.yaml .
+            cp /tmp/k6-image/workspace/values.yaml .
             git add .
             git commit -am "${CIRCLE_SHA1}"
             git push origin master

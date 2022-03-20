@@ -1,4 +1,4 @@
-replicaCount: 5
+replicaCount: 10
 
 image:
   repository: ""
@@ -26,13 +26,13 @@ securityContext: {}
   # runAsUser: 1000
 
 
-resources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 nodeSelector: {}
 
@@ -40,6 +40,6 @@ tolerations: []
 
 affinity: {}
 
-schedule: "0 15 * * *"
+schedule: "0 20 * * *"
 
 project: "calle13"

@@ -1,4 +1,4 @@
-FROM loadimpact/k6
+FROM norgefajardo/k6:v0.37.0
 
 WORKDIR /tmp
 

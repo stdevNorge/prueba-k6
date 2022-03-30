@@ -19,6 +19,10 @@ executors:
 
 jobs:
   build-image:
+    parameters:
+      filename:
+        type: string
+        default: $CIRCLE_PROJECT_REPONAME
     executor: dind-executor
     steps:
       - checkout
@@ -30,28 +34,24 @@ jobs:
       - deploy:
           name: Push docker image to registry
           command: |
-            echo 'export FILENAME=project-$(echo $CIRCLE_PROJECT_REPONAME).yaml' >> $BASH_ENV
-            source $BASH_ENV
             docker tag test-k6 "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker tag test-k6 "norgefajardo/test-k6:latest"
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker push "norgefajardo/test-k6:latest"
-            cp project-a.yaml $FILENAME
-            sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" $FILENAME
+            cp project-a.yaml project-<< parameters.filename >>.yaml
+            sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" project-<< parameters.filename >>.yaml
             ls -l
       - run: mkdir -p workspace
       - run:
           name: debug
           command: |
-            echo 'export FILENAME=project-$(echo $CIRCLE_PROJECT_REPONAME).yaml' >> $BASH_ENV
-            source $BASH_ENV
             export
-            cp $FILENAME  workspace/
+            cp project-<< parameters.filename >>.yaml  workspace/
       - persist_to_workspace:
           root: workspace
           paths:
-            - $FILENAME
+            - project-<< parameters.filename >>.yaml
 
   modify-chart:
     executor: git-tools

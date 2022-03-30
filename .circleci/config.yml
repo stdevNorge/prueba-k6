@@ -54,6 +54,10 @@ jobs:
             - project-<< parameters.filename >>.yaml
 
   modify-chart:
+    parameters:
+      filename:
+        type: string
+        default: '${CIRCLE_PROJECT_REPONAME}'
     executor: git-tools
     steps:
       - attach_workspace:
@@ -66,7 +70,7 @@ jobs:
             git clone git@github.com:ApdexOne/devops-toolkit.git ~/cron-chart
             cd ~/cron-chart
             ls -l /tmp/k6-image/workspace
-            cp /tmp/k6-image/workspace/project-$CIRCLE_PROJECT_REPONAME.yaml apps/
+            cp /tmp/k6-image/workspace/project-<< parameters.filename >>.yaml apps/
             git add .
             git commit -am "${CIRCLE_SHA1}"
             git push origin master

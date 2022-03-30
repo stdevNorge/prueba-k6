@@ -42,7 +42,7 @@ jobs:
             cp project-a.yaml project-<< parameters.filename >>.yaml
             sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" project-<< parameters.filename >>.yaml
       - run: mkdir -p workspace
-      - run: cp project-<< parameters.filename >>.yaml  workspace/
+      - run: cp project-<< parameters.filename >>.yaml  workspace/project-<< parameters.filename >>.yaml
       - persist_to_workspace:
           root: workspace
           paths:

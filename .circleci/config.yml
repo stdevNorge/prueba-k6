@@ -50,6 +50,8 @@ jobs:
             pwd
       - persist_to_workspace:
           root: workspace
+          paths:
+            - "*"
 
   modify-chart:
     parameters:

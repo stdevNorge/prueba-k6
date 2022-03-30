@@ -1,14 +1,14 @@
 apiVersion: apdexone.com/v1alpha1
 kind: XTest
 metadata:
-  name: project-a-test
+  name: project-calle-13
   labels:
     provider: k6
 spec:
-  id: project-a-test
+  id: project-calle-13
   compositionRef:
     name: test-k6
   parameters:
     image: "norgefajardo/k6:v0.37.0"
-    schedule: "0 12 * * *"
+    schedule: "0 18 * * *"
     namespace: production

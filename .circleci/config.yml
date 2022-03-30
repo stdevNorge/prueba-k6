@@ -73,7 +73,7 @@ jobs:
             cp /tmp/k6-image/workspace/project-<< parameters.filename >>.yaml apps/
             git add .
             git commit -am "${CIRCLE_SHA1}"
-            git push origin master
+            git push origin main
 
 workflows:
   jam3-project-a:

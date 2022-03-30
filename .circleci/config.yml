@@ -36,7 +36,7 @@ jobs:
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker push "norgefajardo/test-k6:latest"
             cp project-a.yaml 'project-${CIRCLE_PROJECT_REPONAME}.yaml'
-            sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" project-${CIRCLE_PROJECT_REPONAME}.yaml
+            sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" 'project-${CIRCLE_PROJECT_REPONAME}.yaml'
       - run: mkdir -p workspace
       - run: cp 'project-${CIRCLE_PROJECT_REPONAME}.yaml' workspace/
       - persist_to_workspace:

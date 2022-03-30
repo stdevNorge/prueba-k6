@@ -47,7 +47,7 @@ jobs:
           command:  |
             mkdir -p workspace
             cp project-<< parameters.filename >>.yaml  workspace/project-<< parameters.filename >>.yaml
-            ls -l workspace
+            pwd
       - persist_to_workspace:
           root: workspace
           paths:

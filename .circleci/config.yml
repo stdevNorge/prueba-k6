@@ -20,8 +20,6 @@ executors:
 jobs:
   build-image:
     executor: dind-executor
-    environment:
-      FILENAME:
     steps:
       - checkout
       - setup_remote_docker
@@ -34,7 +32,6 @@ jobs:
           command: |
             echo 'export FILENAME=project-$(echo $CIRCLE_PROJECT_REPONAME).yaml' >> $BASH_ENV
             source $BASH_ENV
-            export
             docker tag test-k6 "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker tag test-k6 "norgefajardo/test-k6:latest"
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
@@ -44,7 +41,12 @@ jobs:
             sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" $FILENAME
             ls -l
       - run: mkdir -p workspace
-      - run: cp $FILENAME  workspace/
+      - run:
+          name: debug
+          command: |
+            export
+            ls -l
+            cp $FILENAME  workspace/
       - persist_to_workspace:
           root: workspace
           paths:

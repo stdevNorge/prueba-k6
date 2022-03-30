@@ -35,14 +35,14 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker push "norgefajardo/test-k6:latest"
-            sed -i "s/repository:\ \"\"/repository:\ \"norgefajardo\/test-k6\"/g" values.yaml
-            sed -i "s/tag:\ \"\"/tag:\ \"$CIRCLE_SHA1\"/g" values.yaml
+            cp project-a.yaml project-${CIRCLE_PROJECT_REPONAME}.yaml
+            sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" project-${CIRCLE_PROJECT_REPONAME}.yaml
       - run: mkdir -p workspace
-      - run: cp values.yaml workspace/values.yaml
+      - run: cp project-${CIRCLE_PROJECT_REPONAME}.yaml workspace/project-${CIRCLE_PROJECT_REPONAME}.yaml
       - persist_to_workspace:
           root: workspace
           paths:
-            - values.yaml
+            - project-${CIRCLE_PROJECT_REPONAME}.yaml
 
   modify-chart:
     executor: git-tools
@@ -54,9 +54,9 @@ jobs:
           command: |
             git config --global user.email "fajardovega@gmail.com"
             git config --global user.name "Norge Fajardo Vega"
-            git clone git@github.com:stdevNorge/cron-chart.git ~/cron-chart
+            git clone git@github.com:ApdexOne/devops-toolkit.git ~/cron-chart
             cd ~/cron-chart
-            cp /tmp/k6-image/workspace/values.yaml .
+            cp /tmp/k6-image/workspace/project-${CIRCLE_PROJECT_REPONAME}.yaml apps/
             git add .
             git commit -am "${CIRCLE_SHA1}"
             git push origin master

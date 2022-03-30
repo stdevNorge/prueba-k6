@@ -46,6 +46,7 @@ jobs:
           command: |
             echo 'export FILENAME=project-$(echo $CIRCLE_PROJECT_REPONAME).yaml' >> $BASH_ENV
             source $BASH_ENV
+            export
             cp $FILENAME  workspace/
       - persist_to_workspace:
           root: workspace

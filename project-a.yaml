@@ -10,5 +10,5 @@ spec:
     name: test-k6
   parameters:
     image: "norgefajardo/k6:v0.37.0"
-    schedule: "0 18 * * *"
+    schedule: "5 21 * * *"
     namespace: production

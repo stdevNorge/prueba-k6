@@ -22,7 +22,7 @@ jobs:
     parameters:
       filename:
         type: string
-        default: $CIRCLE_PROJECT_REPONAME
+        default: '$CIRCLE_PROJECT_REPONAME'
     executor: dind-executor
     steps:
       - checkout

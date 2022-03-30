@@ -41,13 +41,8 @@ jobs:
             docker push "norgefajardo/test-k6:latest"
             cp project-a.yaml project-<< parameters.filename >>.yaml
             sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" project-<< parameters.filename >>.yaml
-            ls -l
       - run: mkdir -p workspace
-      - run:
-          name: debug
-          command: |
-            export
-            cp project-<< parameters.filename >>.yaml  workspace/
+      - run: cp project-<< parameters.filename >>.yaml  workspace/
       - persist_to_workspace:
           root: workspace
           paths:

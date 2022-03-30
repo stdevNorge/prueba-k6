@@ -56,13 +56,14 @@ jobs:
             git config --global user.name "Norge Fajardo Vega"
             git clone git@github.com:ApdexOne/devops-toolkit.git ~/cron-chart
             cd ~/cron-chart
+            ls -l /tmp/k6-image/workspace
             cp '/tmp/k6-image/workspace/project-${CIRCLE_PROJECT_REPONAME}.yaml' apps/
             git add .
             git commit -am "${CIRCLE_SHA1}"
             git push origin master
 
 workflows:
-  btd:
+  jam3-project-a:
     jobs:
       - build-image
       - modify-chart:

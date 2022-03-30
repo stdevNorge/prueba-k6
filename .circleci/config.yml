@@ -50,8 +50,6 @@ jobs:
             pwd
       - persist_to_workspace:
           root: workspace
-          paths:
-            - project-<< parameters.filename >>.yaml
 
   modify-chart:
     parameters:

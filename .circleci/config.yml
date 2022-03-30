@@ -20,6 +20,8 @@ executors:
 jobs:
   build-image:
     executor: dind-executor
+    environment:
+      FILENAME: << project-$CIRCLE_PROJECT_REPONAME.yaml
     steps:
       - checkout
       - setup_remote_docker
@@ -35,15 +37,15 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker push "norgefajardo/test-k6:latest"
-            cp project-a.yaml project-$CIRCLE_PROJECT_REPONAME.yaml
-            sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" project-$CIRCLE_PROJECT_REPONAME.yaml
+            cp project-a.yaml $FILENAME
+            sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" $FILENAME
             ls -l
       - run: mkdir -p workspace
-      - run: cp project-$CIRCLE_PROJECT_REPONAME.yaml workspace/
+      - run: cp $FILENAME  workspace/
       - persist_to_workspace:
           root: workspace
           paths:
-            - project-$CIRCLE_PROJECT_REPONAME.yaml
+            - $FILENAME
 
   modify-chart:
     executor: git-tools

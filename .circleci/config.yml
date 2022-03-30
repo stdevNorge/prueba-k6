@@ -21,7 +21,7 @@ jobs:
   build-image:
     executor: dind-executor
     environment:
-      FILENAME: << project-$CIRCLE_PROJECT_REPONAME.yaml
+      FILENAME: << project-$CIRCLE_PROJECT_REPONAME.yaml >>
     steps:
       - checkout
       - setup_remote_docker

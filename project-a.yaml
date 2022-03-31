@@ -11,5 +11,5 @@ spec:
   parameters:
     image: "norgefajardo/test-k6"
     args: ["run", "/tmp/script.js","-o","output-prometheus-remote"]
-    schedule: "5 3 * * *"
     namespace: production
+    schedule: "15 12 * * *"

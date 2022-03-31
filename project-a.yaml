@@ -10,6 +10,6 @@ spec:
     name: test-k6
   parameters:
     image: "norgefajardo/test-k6"
-    args: ["run", "/tmp/script.js","-o output-prometheus-remote"]
-    schedule: "0 3 * * *"
+    args: ["run", "/tmp/script.js","-o","output-prometheus-remote"]
+    schedule: "5 3 * * *"
     namespace: production

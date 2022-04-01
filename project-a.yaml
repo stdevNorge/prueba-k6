@@ -1,15 +1,19 @@
 apiVersion: apdexone.com/v1alpha1
 kind: XTest
 metadata:
-  name: project-calle-13
+  name: project-buenafe
   labels:
     provider: k6
 spec:
-  id: project-calle-13
+  id: project-buenafe
   compositionRef:
     name: test-k6
   parameters:
-    image: "norgefajardo/test-k6"
-    args: ["run", "/tmp/script.js","-o","output-prometheus-remote"]
+    image: "norgefajardo/test-k6:latest"
+    args: ["run","/tmp/script.js","-o","output-prometheus-remote"]
+    schedule: "30 0 * * *"
+    cpu: 100Mi
+    memory: 28M
+    pods: 3
+    duration: 120
     namespace: production
-    schedule: "15 12 * * *"

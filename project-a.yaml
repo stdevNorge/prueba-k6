@@ -11,7 +11,7 @@ spec:
   parameters:
     image: "norgefajardo/test-k6:latest"
     args: ["run","/tmp/script.js","-o","output-prometheus-remote"]
-    schedule: "40 0 * * *"
+    schedule: "25 2 * * *"
     cpu: 100Mi
     memory: 28M
     pods: 3

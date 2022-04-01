@@ -39,15 +39,12 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
             docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
             docker push "norgefajardo/test-k6:latest"
-            cp project-a.yaml project-<< parameters.filename >>.yaml
-            sed -i "s/image:\ \"\"/image:\ \"norgefajardo\/test-k6:${CIRCLE_SHA1}\"/g" project-<< parameters.filename >>.yaml
-            ls -l
+            cat project-a.yaml | sed -e "s@norgefajardo/test-k6:latest@norgefajardo/test-k6:${CIRCLE_SHA1}@g"|tee project-<< parameters.filename >>.yaml
       - run:
           name: copy to workspace
           command:  |
             mkdir -p workspace
             cp project-<< parameters.filename >>.yaml  workspace/project-<< parameters.filename >>.yaml
-            pwd
       - persist_to_workspace:
           root: workspace
           paths:

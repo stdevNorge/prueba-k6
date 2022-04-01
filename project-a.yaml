@@ -15,5 +15,5 @@ spec:
     cpu: 100Mi
     memory: 28M
     pods: 3
-    duration: "120"
+    duration: 120
     namespace: production

@@ -20,8 +20,8 @@ export let options = {
             timeUnit: '20s',
             maxVUs: 5,
             stages: [
-			{ target: 2, duration: '40s' },  
-                { target: 2, duration: '30s' },                  
+		{ target: 2, duration: '60s'} ,
+                { target: 2, duration: '180s'}                
             ],
         },
         login_anonymous: {
@@ -32,8 +32,8 @@ export let options = {
             preAllocatedVUs: 5,
             maxVUs: 5,
             stages: [
-                { target: 2, duration: '30s' },
-                { target: 1, duration: '30s' }
+                { target: 2, duration: '60s' },
+                { target: 1, duration: '180s' }
             ],
         },
     },

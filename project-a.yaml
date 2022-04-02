@@ -1,18 +1,18 @@
 apiVersion: apdexone.com/v1alpha1
 kind: XTest
 metadata:
-  name: project-buenafe
+  name: project-orishas
   labels:
     provider: k6
 spec:
-  id: project-buenafe
+  id: project-orishas
   compositionRef:
     name: test-k6
   parameters:
     image: "norgefajardo/test-k6:latest"
     args: ["run","/tmp/script.js","-o","output-prometheus-remote"]
     schedule: "25 2 * * *"
-    cpu: 100Mi
+    cpuorishas
     memory: 28M
     pods: 3
     duration: 120

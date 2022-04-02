@@ -20,7 +20,7 @@ export let options = {
             timeUnit: '20s',
             maxVUs: 5,
             stages: [
-                { target: 2, duration: '30s' },  
+			{ target: 2, duration: '40s' },  
                 { target: 2, duration: '30s' },                  
             ],
         },

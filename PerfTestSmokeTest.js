@@ -61,18 +61,18 @@ export function metrics(resp)
 //GENERAL DATA
 const addrdata = new SharedArray("address", function() {return papaparse.parse(open('add_all.csv'), { header: true }).data;});
 
-let AMB = `${__ENV.AMB}`
+
 let userdata, URL
 userdata = URL = ""
-if (AMB === 'stg' || AMB === 'STG'){
+
 //>>>>>STG<<<<<<
-    userdata = new SharedArray("users", function() {return papaparse.parse(open('users_stg.csv'), { header: true }).data;});
-    URL = 'https://stg-client-api-gateway.pedidosya.com'
-} else {
-//>>>>>LIVE<<<<<<
-    userdata = new SharedArray("users", function() {return papaparse.parse(open('users.csv'), { header: true }).data;});
-    URL ='https://client-api-gateway.pedidosya.com'
-}
+ userdata = new SharedArray("users", function() {return papaparse.parse(open('users_stg.csv'), { header: true }).data;});
+ URL = 'https://stg-client-api-gateway.pedidosya.com'
+
+
+
+
+
 let apitoken 
 apitoken = ''
 let restaurants = []
